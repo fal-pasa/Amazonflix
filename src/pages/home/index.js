@@ -1,15 +1,12 @@
 import React from 'react';
-import Menu from './components/menu';
-import Carousel from './components/Carousel';
-import Footer from './components/Footer';
-import BannerMain from './components/BannerMain';
-import dadosIniciais from './dados_iniciais.json';
+import Carousel from '../../components/Carousel';
+import BannerMain from '../../components/BannerMain';
+import dadosIniciais from '../../dados_iniciais.json';
+import MainLayout from '../../Layout/mainLayout';
 
-function App() {
+function Home() {
   return (
-    <div style={{backgroundColor: '#141414'}}>
-      <Menu />
-
+    <MainLayout style={{backgroundColor: '#141414'}}>
       <BannerMain
         videoTitle={dadosIniciais.categorias[0].videos[0].titulo}
         url={dadosIniciais.categorias[0].videos[0].url}
@@ -45,10 +42,8 @@ function App() {
         ignoreFirstVideo
         category={dadosIniciais.categorias[5]} 
       />
-
-      <Footer />
-    </div>
+    </MainLayout>
   );
 }
 
-export default App;
+export default Home;
