@@ -2,11 +2,14 @@ import React from 'react';
 import Carousel from '../../components/Carousel';
 import BannerMain from '../../components/BannerMain';
 import dadosIniciais from '../../dados_iniciais.json';
-import MainLayout from '../../Layout/mainLayout';
+import Menu from '../../components/menu';
+import Footer from '../../components/Footer';
 
 function Home() {
   return (
-    <MainLayout style={{backgroundColor: '#141414'}}>
+    <div style={{ background: "#141414" }}>
+      <Menu />
+
       <BannerMain
         videoTitle={dadosIniciais.categorias[0].videos[0].titulo}
         url={dadosIniciais.categorias[0].videos[0].url}
@@ -42,7 +45,9 @@ function Home() {
         ignoreFirstVideo
         category={dadosIniciais.categorias[5]} 
       />
-    </MainLayout>
+
+      <Footer/>
+    </div>
   );
 }
 
