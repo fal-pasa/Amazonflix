@@ -13,6 +13,23 @@ function getAll () {
       throw new Error('Não foi possível pegar os dados :(')
     })
 }
+function create (objetoCategoria) {
+  return fetch(`${URL_CATEGORIES}?_embed=categorias`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(objetoCategoria)
+  })
+    .then(async (respostaDoServidor) => {
+      if (respostaDoServidor.ok) {
+        const resposta = await respostaDoServidor.json()
+        return resposta
+      }
+
+      throw new Error('Não foi possível cadastrar os dados :(')
+    })
+}
 
 function getAllWithVideos () {
   return fetch(`${URL_CATEGORIES}?_embed=videos`)
@@ -28,5 +45,6 @@ function getAllWithVideos () {
 
 export default {
   getAllWithVideos,
-  getAll
+  getAll,
+  create
 }

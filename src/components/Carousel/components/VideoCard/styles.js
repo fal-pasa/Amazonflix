@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const VideoCardContainer = styled.a`
   border: 2px solid;
@@ -7,9 +7,9 @@ export const VideoCardContainer = styled.a`
   overflow: hidden;
   cursor: pointer;
   color: white;
-  flex: 0 0 298px;
-  width: 298px;
-  height: 197px;
+  flex: 0 0 16vw;
+  width: 17vw;
+  height: 9vw;
   background-image: ${({ url }) => `url(${url})`};
   background-size: cover;
   background-position: center;
@@ -28,4 +28,8 @@ export const VideoCardContainer = styled.a`
   &:not(:first-child) {
     margin-left: 20px;
   }
-`;
+  @media screen and (max-width: 800px){
+    width: 80vw;
+    height: 45vw;
+  }
+`
