@@ -1,8 +1,8 @@
-import React from 'react';
-import './style.css';
-import logo from '../../assets/imgs/logo.png';
-import ButtonLink from '../button-link';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import './style.css'
+import logo from '../../assets/imgs/logo.png'
+import ButtonLink from '../button-link'
+import { Link } from 'react-router-dom'
 
 function Menu () {
   return (
