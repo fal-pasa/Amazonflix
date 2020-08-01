@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import MainLayout from '../../Layout/mainLayout'
 import FormField from '../../components/FormField'
-import ButtonLink from '../../components/button-link'
 import useForm from '../../hooks/useForm'
+import categoriasRepository from '../../repositories/categorias'
 
 function CadastroCategoria () {
   const valoresIniciais = {
@@ -16,34 +16,35 @@ function CadastroCategoria () {
 
   const [categorias, setCategorias] = useState([])
 
-  useEffect(() => {
-    const URL_TOP = window.location.hostname.includes('localhost')
-      ? 'http://localhost:8080/categorias'
-      : 'https://amazomflix.herokuapp.com/categorias'
-    fetch(URL_TOP)
-      .then(async (respostaDoServidor) => {
-        const resposta = await respostaDoServidor.json()
-        setCategorias([
-          ...resposta
-        ])
+  async function loadCategories () {
+    categoriasRepository
+      .getAll()
+      .then((categoriasFromServer) => {
+        setCategorias(categoriasFromServer)
       })
+  }
+
+  useEffect(() => {
+    loadCategories()
   }, [])
 
   return (
     <MainLayout>
       <h1>
-        Cadastro de Categoria:
-        {values.titulo}
+        Cadastro de Categoria
       </h1>
 
-      <form onSubmit={function handleSubmit (infosDoEvento) {
-        infosDoEvento.preventDefault()
-        setCategorias([
-          ...categorias,
-          values
-        ])
-
-        clearForm()
+      <form onSubmit={function handleSubmit (event) {
+        event.preventDefault()
+        categoriasRepository.create({
+          titulo: values.titulo,
+          descricao: values.descricao,
+          cor: values.cor
+        })
+          .then(() => {
+            clearForm()
+            loadCategories()
+          })
       }}
       >
 
@@ -70,9 +71,9 @@ function CadastroCategoria () {
           onChange={handleChange}
         />
 
-        <ButtonLink>
+        <button className="ButtonLink" type="submit">
           Cadastrar
-        </ButtonLink>
+        </button>
       </form>
 
       {categorias.length === 0 && (
@@ -84,8 +85,30 @@ function CadastroCategoria () {
 
       <ul>
         {categorias.map((categoria) => (
-          <li key={`${categoria.titulo}`}>
-            {categoria.titulo}
+          <li key={`Categoria_${categoria.id}`} style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            margin: '12px 0',
+            padding: '12px 0',
+            borderBottom: '1px solid #fff4'
+          }}>
+
+            <div>{categoria.titulo}</div>
+
+            <button
+              className="ButtonLink"
+              onClick={function handleSubmit () {
+                categoriasRepository.deleteCategoria({
+                  id: categoria.id
+                })
+                  .then(() => {
+                    loadCategories()
+                  })
+              }}
+            >
+              Deletar
+            </button>
           </li>
         ))}
       </ul>

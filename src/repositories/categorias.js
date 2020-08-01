@@ -14,7 +14,7 @@ function getAll () {
     })
 }
 function create (objetoCategoria) {
-  return fetch(`${URL_CATEGORIES}?_embed=categorias`, {
+  return fetch(`${URL_CATEGORIES}?_embed=categorias/`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
@@ -29,6 +29,12 @@ function create (objetoCategoria) {
 
       throw new Error('Não foi possível cadastrar os dados :(')
     })
+}
+
+function deleteCategoria (objetoCategoria) {
+  return fetch(`${URL_CATEGORIES}/${objetoCategoria.id}`, {
+    method: 'DELETE'
+  })
 }
 
 function getAllWithVideos () {
@@ -46,5 +52,6 @@ function getAllWithVideos () {
 export default {
   getAllWithVideos,
   getAll,
-  create
+  create,
+  deleteCategoria
 }
