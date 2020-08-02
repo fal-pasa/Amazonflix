@@ -4,6 +4,7 @@ import MainLayout from '../../Layout/mainLayout'
 import FormField from '../../components/FormField'
 import useForm from '../../hooks/useForm'
 import categoriasRepository from '../../repositories/categorias'
+import Loading from '../../components/Loading'
 
 function CadastroCategoria () {
   const valoresIniciais = {
@@ -78,8 +79,7 @@ function CadastroCategoria () {
 
       {categorias.length === 0 && (
         <div>
-          {/* Cargando... */}
-          Loading...
+          <Loading/>
         </div>
       )}
 
